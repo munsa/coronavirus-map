@@ -23,13 +23,13 @@ describe('AppComponent', () => {
   it(`should have as title 'coronavirus-map'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('coronavirus-map');
+    expect(app.title).toEqual('coronavirus-home');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('coronavirus-map app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('coronavirus-home app is running!');
   });
 });
