@@ -10,31 +10,6 @@ import mapData from '../../../assets/spainProvincesCustomLow';
 })
 export class HomeComponent implements OnInit {
   ngOnInit() {
-
-    /*const test = {
-      "type":"FeatureCollection",
-      "features": [
-        {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[1,2], [3,4], [5,6]]]}},
-      ]}
-
-    mapData.features.forEach(f => {
-      f.geometry.coordinates = f.geometry.coordinates.map(c => {
-        let coordinates = [];
-        if (f.geometry.type === 'Polygon') {
-          coordinates = invertCoordinates(c);
-        } else if(f.geometry.type === 'MultiPolygon') {
-          c.forEach(a => {
-            const r = invertCoordinates(a);
-            coordinates.push(r);
-          })
-        }
-
-        return coordinates;
-      });
-    });
-    const mapDataCopy = mapData;*/
-
-
     let map = am4core.create('chartdiv', am4maps.MapChart);
     map.geodata = mapData;
     map.projection = new am4maps.projections.Mercator;
@@ -43,15 +18,14 @@ export class HomeComponent implements OnInit {
     polygonSeries.mapPolygons.template.events.on('hit', function (ev) {
       map.zoomToMapObject(ev.target);
     });
+
+    // Configure series
+    let polygonTemplate = polygonSeries.mapPolygons.template;
+    polygonTemplate.tooltipText = "{nameunit}";
+    polygonTemplate.fill = am4core.color("#74B266");
+
+    // Create hover state and set alternative fill color
+    let hs = polygonTemplate.states.create("hover");
+    hs.properties.fill = am4core.color("#367B25");
   }
-}
-
-const invertCoordinates = (c) => {
-  let orderedCoordinates = [];
-  const l = c.length;
-  c.forEach((e, i) => {
-    orderedCoordinates[l - 1 - i] = e;
-  });
-
-  return orderedCoordinates;
 }
